@@ -43,3 +43,8 @@ class NoteRepository:
             self.db.commit()
             self.db.refresh(note)
 
+    def list_by_ids(self, ids: list[int]) -> list[Note]:
+        if not ids:
+            return []
+
+        return self.db.exec(select(Note).where(Note.id.in_(ids))).all()

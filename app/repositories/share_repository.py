@@ -1,3 +1,5 @@
+from psycopg import rows
+from sqlalchemy.sql.functions import user
 from sqlmodel import Session, select, delete
 
 from app.model.share import NoteShare, LabelShare
@@ -56,3 +58,21 @@ class ShareRepository:
             query = query.where(NoteShare.role == role)
 
         return self.db.exec(query).first() is not None
+
+    def has_any_label_share(self, label_ids: list[int], user_id: int, role: str | None = None) -> bool:
+        if not label_ids:
+            return False
+
+        query = select(LabelShare).where(LabelShare.label_id.in_(label_ids), LabelShare.user_id == user_id)
+        if role is not None:
+            query = query.where(LabelShare.role == role)
+
+        return self.db.exec(query).first() is not None
+
+    def list_note_ids_shared_direcly(self, user_id: int) -> list[int]:
+        return self.db.exec(select(NoteShare.note_id).where(NoteShare.user_id == user_id)).all()
+
+        # return [row [0] if isinstance(row,tuple) for row in rows]
+
+    def list_label_ids_shared_direcly(self, user_id: int) -> list[int]:
+        return self.db.exec(select(LabelShare.label_id).where(LabelShare.user_id == user_id)).all()
