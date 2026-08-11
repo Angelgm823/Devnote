@@ -2,7 +2,7 @@ from psycopg import rows
 from sqlalchemy.sql.functions import user
 from sqlmodel import Session, select, delete
 
-from app.model.share import NoteShare, LabelShare
+from app.models.share import NoteShare, LabelShare
 
 
 class ShareRepository:

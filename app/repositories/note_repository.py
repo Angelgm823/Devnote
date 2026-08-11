@@ -1,8 +1,8 @@
 from sqlmodel import Session, select, delete
 
-from app.model import note
-from app.model.label import NoteLabelLink
-from app.model.note import Note
+from app.models import note
+from app.models.label import NoteLabelLink
+from app.models.note import Note
 
 
 class NoteRepository:

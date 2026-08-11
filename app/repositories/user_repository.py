@@ -1,6 +1,6 @@
 from sqlmodel import Session, select
 
-from app.model.users import User
+from app.models.users import User
 
 
 class UserRepository:
