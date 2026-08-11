@@ -20,6 +20,13 @@ class NoteCreate(SQLModel):
     labels_ids: Optional[list[int]] = None
 
 
+class NoteUpdate(SQLModel):
+    title: Optional[str] = None
+    content: Optional[str] = None
+    color: Optional[str] = None
+    label_ids: Optional[list[int]] = None
+
+
 class NoteRead(SQLModel):
     id: int
     title: str
