@@ -15,7 +15,7 @@ class Label(SQLModel, table=True):
 
 class NoteLabelLink(SQLModel, table=True): #tabla intermedia entre note y label
     __tablename__ = "note_label_link"
-    __table_args__ = (UniqueConstraint("note_id", "label_id", name="unq_note_label_link_id"))
+    __table_args__ = (UniqueConstraint("note_id", "label_id", name="unq_note_label_link_id"),)
 
     id: int = Field(default=None, primary_key=True)
 

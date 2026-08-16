@@ -17,7 +17,7 @@ def create_label(payload: LabelCreate, db: DBSESSION, user: CURRENT_USER):
     return LabelService(db).create(user.id, payload)
 
 
-@router.delete("/{label_id}", response_model=LabelRead, status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{label_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_label(label_id: int, db: DBSESSION, user: CURRENT_USER):
     LabelService(db).delete(user.id, label_id)
 
