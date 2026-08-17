@@ -1,6 +1,5 @@
 from sqlmodel import Session, select, delete
 
-from app.models import note
 from app.models.label import NoteLabelLink
 from app.models.note import Note
 
@@ -40,8 +39,7 @@ class NoteRepository:
         for label in set(label_ids or []):
             self.db.add(NoteLabelLink(note_id=note_id, label_id=label))
 
-            self.db.commit()
-            self.db.refresh(note)
+        self.db.commit()
 
     def list_by_ids(self, ids: list[int]) -> list[Note]:
         if not ids:

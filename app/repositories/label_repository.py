@@ -11,9 +11,15 @@ class LabelRepository:
         return self.db.get(Label, label_id)
 
     def list_by_user(self, owner_id: int) -> list[Label]:
-        query = select(Label).where(Label.owner_id == owner_id).order_by(Label.asc())
+        query = select(Label).where(Label.owner_id == owner_id).order_by(Label.name.asc())
 
         return self.db.exec(query).all()
+
+    def list_by_ids(self, ids: list[int]) -> list[Label]:
+        if not ids:
+            return []
+
+        return self.db.exec(select(Label).where(Label.id.in_(ids))).all()
 
     def get_by_name(self, owner_id: int, name: str) -> Label | None:
         query = select(Label).where(Label.owner_id == owner_id).where(Label.name == name)
