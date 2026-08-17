@@ -9,7 +9,7 @@ class ShareRol(str, Enum):
     WRITE = "write"
 
 
-class NoteShare(SQLModel):
+class NoteShare(SQLModel, table=True):
     __tablename__ = "note_share"
     __table_args__ = (UniqueConstraint("note_id", "user_id", name="uq_note_user"),)
 

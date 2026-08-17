@@ -9,7 +9,7 @@ from app.core.security import decode_token
 from app.core.db import get_session
 from app.repositories.user_repository import UserRepository
 
-oauth2 = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/token")
+oauth2 = OAuth2PasswordBearer(tokenUrl="/auth/v1/auth/token")
 
 
 # dependencia para base de datos

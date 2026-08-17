@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from app.core.security import hash_password, create_access_token
+from app.core.security import hash_password, verify_password, create_access_token
 from app.models.users import User, UserCreate
 from app.repositories.user_repository import UserRepository
 
@@ -19,7 +19,7 @@ class AuthService:
 
     def login(self, email: str, password: str) -> str:
         user = self.repository.get_by_email(email)
-        if not user:
+        if not user or not verify_password(password, user.hashed_password):
             raise HTTPException(status_code=400, detail="Credenciales inválidas")
 
         token = create_access_token({"sub": str(user.id)})

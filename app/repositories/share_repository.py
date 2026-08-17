@@ -42,7 +42,7 @@ class ShareRepository:
             self.db.refresh(share)
             return share
 
-        share = NoteShare(label_id=label_id, user_id=user_id, role=role)
+        share = LabelShare(label_id=label_id, user_id=user_id, role=role)
         self.db.add(share)
         self.db.commit()
         self.db.refresh(share)

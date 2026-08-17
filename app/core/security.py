@@ -1,5 +1,4 @@
-import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 
 import jwt
 from pwdlib import PasswordHash
@@ -19,10 +18,10 @@ def verify_password(plain_password: str, hashed: str) -> bool:
 
 def create_access_token(data: dict, expire: int | None = None) -> str:
     to_encode = data.copy()
-    expire_time = datetime.utcnow() + timedelta(minutes=expire or settings.JWT_EXPIRES_MINUTES)
+    expire_time = datetime.now(timezone.utc) + timedelta(minutes=expire or settings.JWT_EXPIRES_MINUTES)
     to_encode.update({"exp": expire_time})
-    return jwt.encode(to_encode, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
+    return jwt.encode(to_encode, settings.JWT_SECRET, algorithm=settings.JWT_ALG)
 
 
 def decode_token(token: str) -> dict:
-    return jwt.decode(token, settings.JWT_SECRET, algorithm=[settings.JWT_ALGORITHM])
+    return jwt.decode(token, settings.JWT_SECRET, algorithms=[settings.JWT_ALG])

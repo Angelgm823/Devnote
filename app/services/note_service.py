@@ -56,7 +56,7 @@ class NoteService:
         for note in shared:
             ids_combinate.setdefault(note.id, note)
 
-        return sorted(ids_combinate.values(), key=lambda note: note.id, reversed=True)
+        return sorted(ids_combinate.values(), key=lambda note: note.id, reverse=True)
 
     def create(self, owner_id: int, payload: NoteCreate) -> Note:
         note = self.notes.create(Note(owner_id=owner_id, **payload.model_dump(exclude={"labels_ids"})))
