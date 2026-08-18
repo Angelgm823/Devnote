@@ -8,7 +8,10 @@ engine = create_engine(settings.DATABASE_URL, echo=True,
                        connect_args={"check_same_thread": False} if "sqlite" in settings.DATABASE_URL else {})
 
 def init_db() -> None:
-    SQLModel.metadata.create_all(engine) # dev desarrollo
+    pass
+    if settings.ENVIRONTMENT == "DEV":
+        SQLModel.metadata.create_all(engine)
+    # SQLModel.metadata.create_all(engine) # dev desarrollo
 
 def get_session() -> Iterator[Session]:
     with Session(engine) as session:

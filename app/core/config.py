@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     JWT_ALG: str = Field(default="HS256", env="JWT_ALG")
     JWT_EXPIRES_MINUTES: int = Field(default=60 * 24, env="JWT_EXPIRES_MINUTES")
     PROJECT_NAME: str = "Devnote"
+    ENVIRONTMENT: str = Field(..., env="ENVIRONTMENT")
 
     class Config:
         env_file = ".env"
