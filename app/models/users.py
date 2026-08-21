@@ -6,6 +6,7 @@ class User(SQLModel, table=True):  # clase heredando sqlmodel
     email: str = Field(index=None, unique=True)
     tag_name: str = Field(default="")
     hashed_password: str
+    active: bool = Field(default=True)
 
 
 class UserCreate(SQLModel):
