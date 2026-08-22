@@ -23,11 +23,22 @@ if config.config_file_name is not None:
 from dotenv import load_dotenv
 
 load_dotenv()
-DATABASE_URL = os.getenv("DATABASE_URL")
+# DATABASE_URL = os.getenv("DATABASE_URL")
 from app.models.label import Label, NoteLabelLink
 from app.models.note import Note
 from app.models.users import User
 from app.models.share import LabelShare, NoteShare
+
+raw_url = os.environ["DATABASE_URL"]
+url = raw_url
+
+if url.startswith("postgres://"):
+    url = "postgres+psycopg://" + url[len("postgres://"):]
+elif url.startswith("postgres://") and "+psycopg" not in url:
+    url = "postgres+psycopg://" + url[len("postgres://"):]
+engine = create_engine(url, pool_pre_ping=True)
+
+DATABASE_URL = url
 
 target_metadata = SQLModel.metadata
 
